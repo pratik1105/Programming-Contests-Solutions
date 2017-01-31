@@ -1,9 +1,15 @@
 #include<iostream>
+#include<stdio.h>
+
 using namespace std;
 
 int main()
 {
-	cout<<-2%10<<endl;
-	cout<<-5%10<<endl;
+	int a,b;
+	
+	cin>>a>>b;
+	
+	cout<<(a*b)/2;
+	
 	return 0;
 }
