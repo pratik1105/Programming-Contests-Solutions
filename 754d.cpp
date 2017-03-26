@@ -7,6 +7,7 @@ typedef pair<int,int> ii;
 
 #define fill(a,x) memset(a,x,sizeof(a)) 
 #define pb push_back
+#define mp make_pair
 #define sz(x) (int)x.size() 
 #define F first
 #define S second
@@ -17,94 +18,64 @@ const ll INF = 1e18;
 const ll mod = 1e9+7;
 const int N = 3e5+10; 
 
-ll l[N];
-ll r[N];
-vector<ll> s;
-vector<ll> e;
-ll dummy[N];
-vi ans;
-int n,k;
-bool check(ll lt,ll rt)
-{
-	if(lt>rt)
-		return false;
-
-	 int count=0;
-     FOR(i,1,n)
-     {
-         if(lt>=l[i] and rt<=r[i])
-         count++;
-
-         if(count==k)
-         return true;  
-     }
-     return false;
-}
-
+int lt[N],rt[N];
+vector<ii> seg;
+priority_queue<int> q;
+vi final;
 int main(){
   fast;
-  
+  int n,k;
   cin>>n>>k;
   FOR(i,1,n)
   {
-     cin>>l[i]>>r[i];
-     e.pb(r[i]);
+  	int l,r;
+  	cin>>l>>r;
+  	seg.pb(mp(l,-i));
+  	seg.pb(mp(r,i));
+  	rt[i]=r;
+  	lt[i]=l;
   }
-  sort(e.begin(),e.end());
   
-  int temp=0;
-  int lt=0,rt=n-1;
-  FOR(i,1,n)
- {
-  //cout<<"h"<<endl;
-  lt=temp;
-  while(e[lt]<l[i])
-  	lt++;
-  temp=lt;
-
-  while((rt-lt)>1)
-  {
-      int mid=(lt+rt)/2;
-      if(check(l[i],e[mid]))
-      lt=mid;
-      else
-      rt=mid;
-  }
-
-  dummy[i]=0;
-  if(check(l[i],e[rt]))
-  	dummy[i]=e[rt]-l[i]+1;
-  else if(check(l[i],e[lt]))
-  	dummy[i]=e[lt]-l[i]+1;
-
- }
+  sort(seg.begin(),seg.end());
+  int ans=0;
+  int start=0;
   
-  ll maxi=0;
-  ll ans1=0,ans2=0;
-  FOR(i,1,n)
+  FOR(i,0,2*n-1)
   {
-  	if(dummy[i]>maxi)
+  	if(seg[i].S<0)
   	{
-  		maxi=dummy[i];
-  		ans1=l[i];
-  		ans2=dummy[i]+l[i]-1;
+  		q.push(-rt[-seg[i].S]);
+  		while(sz(q)>k)
+  			q.pop();
+
+  		if(q.size()==k)
+  		{
+  			ans=max(ans,-q.top()-seg[i].F+1);
+  			if(ans==-q.top()-seg[i].F+1)
+  				start=seg[i].F;
+  		}
   	}
   }
-  
-  cout<<maxi<<endl;
-  if(maxi==0)
+
+  if(ans==0)
   {
-  	FOR(i,1,k) 
+  	cout<<0<<endl;
+  	FOR(i,1,k)
   	cout<<i<<" ";
-    return 0;
+  	return 0;
   }
 
+  cout<<ans<<endl;
   FOR(i,1,n)
   {
-  	if(ans1>=l[i] and ans2<=r[i])
-      ans.pb(i); 
+  	if(k>0 and lt[i]<=start and rt[i]>=start+ans-1)
+  	{
+  		final.pb(i);
+  		k--;
+  	}
   }
-  FOR(i,0,k-1)
-  cout<<ans[i]<<" ";
+
+  FOR(i,0,sz(final)-1)
+  cout<<final[i]<<" ";
   return 0;
 }
