@@ -19,11 +19,32 @@ const int N = 1e5+10;
 
 int main(){
   fast;
-  int n=10;
-
-  FOR(i,1,n)
+  ll a,b,c;
+  cin>>a>>b>>c;
+  if(a%2 or b%2 or c%2)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	cout<<0;
+  	return 0;
   }
+
+  if(a==b and b==c)
+  {
+  	cout<<-1;
+  	return 0;
+  }
+
+  int ans=0;
+  while(a%2==0 and b%2==0 and c%2==0)
+  {
+  	ans++;
+  	ll newa=(b+c)/2;
+  	ll newb=(a+c)/2;
+  	ll newc=(a+b)/2;
+  	a=newa;
+  	b=newb;
+  	c=newc;
+  }
+
+  cout<<ans;
   return 0;
 }

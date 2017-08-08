@@ -16,14 +16,63 @@ typedef pair<int,int> ii;
 const ll INF = 1e18;
 const ll mod = 1e9+7;
 const int N = 1e5+10; 
+int p,x,y;
+bool check(int n)
+{
+	int i=n/50;
+	i=i%475;
+	if(i<0)
+		i+=475;
+
+	FOR(k,1,25)
+	{
+		i=(i*96+42)%475;
+		if(i<0)
+			i+=475;
+		if(26+i==p)
+			return true;
+	}
+	return false;
+}
+
+int howmuch(int n)
+{
+	if(n<=x)
+		return 0;
+
+	n=n-x;
+	if(n%100)
+		return (n/100)+1;
+	else
+		return n/100;
+}
 
 int main(){
   fast;
-  int n=10;
-
-  FOR(i,1,n)
+  
+  cin>>p>>x>>y;
+  int n=x;
+  
+  while(n>=y)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	if(check(n))
+  	{
+  		cout<<howmuch(n);
+  		return 0;
+  	}
+  	n=n-50;
   }
+
+  n=x;
+  while(true)
+  {
+  	if(check(n))
+  	{
+  		cout<<howmuch(n);
+  		return 0;
+  	}
+  	n=n+50;
+  }
+
   return 0;
 }

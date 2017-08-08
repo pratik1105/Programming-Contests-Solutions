@@ -17,13 +17,35 @@ const ll INF = 1e18;
 const ll mod = 1e9+7;
 const int N = 1e5+10; 
 
+unordered_map<string,int> num;
+ll dp[5010][5010];
 int main(){
   fast;
-  int n=10;
-
-  FOR(i,1,n)
+  string s;
+  cin>>s;
+  num.clear();
+  string temp;
+  int last=1;
+  for(int i=0;i<sz(s);i++)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+    temp="";
+    for(int j=i;j<sz(s);i++)
+    {
+      temp+=s[j];
+      if(num[temp]==0)
+        num[temp]=last++;
+    }
+  }
+
+  for(int i=0;i<sz(s);i++)
+    dp[i][1]=1;
+
+  for(int i=1;i<sz(s);i++)
+  {
+    for(int j=2;j<=i+1;j++)
+    {
+      dp[i][j]=
+    }
   }
   return 0;
 }

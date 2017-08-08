@@ -19,11 +19,20 @@ const int N = 1e5+10;
 
 int main(){
   fast;
-  int n=10;
-
-  FOR(i,1,n)
+  int t;
+  cin>>t;
+  while(t--)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	int n;
+  	cin>>n;
+  	int temp;
+  	int ans=0;
+  	FOR(i,1,n)
+  	{
+  		cin>>temp;
+  		ans=max(ans,temp);
+  	}
+  	cout<<n-ans<<endl;
   }
   return 0;
 }

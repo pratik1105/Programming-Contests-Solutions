@@ -19,11 +19,22 @@ const int N = 1e5+10;
 
 int main(){
   fast;
-  int n=10;
-
-  FOR(i,1,n)
+  int t;
+  cin>>t;
+  while(t--)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	int n,m;
+  	cin>>n>>m;
+  	FOR(i,1,m)
+  	{
+  		int u,v;
+  		cin>>u>>v;
+  	}
+  	if((n-2*m) >= 0 and (n-2*m)%2==0)
+  	cout<<"yes"<<endl;
+  	else
+  	cout<<"no"<<endl;
   }
+
   return 0;
 }

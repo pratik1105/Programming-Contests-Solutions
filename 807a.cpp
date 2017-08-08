@@ -19,11 +19,33 @@ const int N = 1e5+10;
 
 int main(){
   fast;
-  int n=10;
-
+  int n;
+  cin>>n;
+  int mini=5000;
+  bool flag=false;
   FOR(i,1,n)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+	int a,b;
+	cin>>a>>b;
+	if(a!=b)
+	{
+		cout<<"rated"<<endl;
+		return 0;
+	}	
+	if(a>mini)
+	{
+		flag=true;
+	}
+	else
+		mini=a;
   }
+
+  if(flag)
+  {
+  	cout<<"unrated"<<endl;
+  	return 0;
+  }
+
+  cout<<"maybe"<<endl;
   return 0;
 }

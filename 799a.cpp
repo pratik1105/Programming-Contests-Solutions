@@ -18,12 +18,18 @@ const ll mod = 1e9+7;
 const int N = 1e5+10; 
 
 int main(){
-  fast;
-  int n=10;
+  fast;	
+  int n,t,k,d;
+  cin>>n>>t>>k>>d;
+  int first=n/k;
+  if(n%k)
+  first++;
+  first*=t;
 
-  FOR(i,1,n)
-  {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
-  }
+  int second=t+d;
+  if(first>second)
+  cout<<"YES";
+  else
+  cout<<"NO"; 
   return 0;
 }

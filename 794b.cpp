@@ -19,11 +19,16 @@ const int N = 1e5+10;
 
 int main(){
   fast;
-  int n=10;
-
+  int a,b,c,n;
+  cin>>a>>b>>c>>n;
+  int cnt=0;
   FOR(i,1,n)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	int x;
+  	cin>>x;
+  	if(x>b and x<c)
+  		cnt++;
   }
+  cout<<cnt;
   return 0;
 }

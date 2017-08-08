@@ -17,13 +17,22 @@ const ll INF = 1e18;
 const ll mod = 1e9+7;
 const int N = 1e5+10; 
 
+string s;
 int main(){
   fast;
-  int n=10;
-
-  FOR(i,1,n)
+  int t;
+  cin>>t;
+  
+  FOR(i,1,t)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	cin>>s;
+  	string srted_s=s;
+  	sort(srted_s.begin(),srted_s.end());
+  	if(s==srted_s)
+  	cout<<"yes"<<endl;
+  	else
+  	cout<<"no"<<endl;
   }
+
   return 0;
 }

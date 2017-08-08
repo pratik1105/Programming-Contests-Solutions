@@ -19,11 +19,23 @@ const int N = 1e5+10;
 
 int main(){
   fast;
-  int n=10;
-
-  FOR(i,1,n)
+  int t;
+  cin>>t;
+  while(t--)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	ll u,v;
+  	cin>>u>>v;
+  	ll val=u+v;
+  	if(val%2)
+  	{
+  		ll ans=((val+1)/2)*val+u+1;
+  		cout<<ans<<endl;
+  	}
+  	else
+  	{
+  		ll ans=(val/2)*(val+1)+u+1;
+  		cout<<ans<<endl;
+  	}
   }
   return 0;
 }

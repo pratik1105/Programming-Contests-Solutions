@@ -17,13 +17,35 @@ const ll INF = 1e18;
 const ll mod = 1e9+7;
 const int N = 1e5+10; 
 
+ll arr[N];
 int main(){
   fast;
-  int n=10;
-
-  FOR(i,1,n)
+  int t;
+  cin>>t;
+  while(t--)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	int n;
+  	cin>>n;
+  	
+  	FOR(i,1,n)
+  	cin>>arr[i];
+
+  	sort(arr+1,arr+n+1);
+  	reverse(arr+1,arr+n+1);
+
+  	ll total=0;
+
+  	FOR(i,1,n)
+  	total+=arr[i];
+
+  	ll ans=-INF;
+  	ll sum=0;
+  	FOR(i,1,n)
+  	{
+  		sum+=arr[i];
+  		ans=max(ans,sum*i+(total-sum));
+  	}
+  	cout<<ans<<endl;
   }
   return 0;
 }

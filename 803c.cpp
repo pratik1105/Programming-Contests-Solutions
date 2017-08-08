@@ -19,11 +19,38 @@ const int N = 1e5+10;
 
 int main(){
   fast;
-  int n=10;
+  ll n;
+  double k;
+  cin>>n>>k;
 
-  FOR(i,1,n)
+  double lim=(k*(k+1))/2;
+
+  int root=sqrt(n);
+  ll ans=INF;
+  FOR(i,1,root)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	if(n%i==0 and i>=lim)
+  	{
+  		ans=i;
+  		break;
+  	}
+  	if(n%i==0 and n/i>=lim)
+  	{
+  		ans=min(ans,n/i);
+  	}
   }
+  ll K=k;
+  if(ans!=INF)
+  {
+  	ll sums=0;
+  	FOR(i,1,k-1)
+  	{
+ 		cout<<(n/ans)*i<<" ";
+ 		sums+=(n/ans)*i; 		
+  	}	
+  	cout<<n-sums;
+  }
+  else
+  	cout<<-1;
   return 0;
 }

@@ -17,13 +17,29 @@ const ll INF = 1e18;
 const ll mod = 1e9+7;
 const int N = 1e5+10; 
 
+int deg[N];
 int main(){
   fast;
-  int n=10;
+  int n,m;
+  cin>>n>>m;
+  fill(deg,0);
+
+  FOR(i,1,m)
+  {
+  	int u,v;
+  	cin>>u>>v;
+  	deg[u]++;
+  	deg[v]++;
+  }
 
   FOR(i,1,n)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	if(deg[i]%2)
+  	{
+  		cout<<"NO";
+  		return 0;
+  	}
   }
+  cout<<"YES";
   return 0;
 }

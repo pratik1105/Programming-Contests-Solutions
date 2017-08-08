@@ -15,15 +15,22 @@ typedef pair<int,int> ii;
 #define fast ios_base::sync_with_stdio(false),cin.tie(0),cout.tie(0)
 const ll INF = 1e18;
 const ll mod = 1e9+7;
-const int N = 1e5+10; 
+const int N = 501; 
 
+int done[N];
 int main(){
   fast;
-  int n=10;
-
-  FOR(i,1,n)
+  int t;
+  cin>>t;
+  while(t--)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	int n;
+  	cin>>n;
+  	FOR(i,1,n)
+  	cout<<500-i<<" ";
+  	cout<<endl;
   }
+
+  
   return 0;
-}
+}	

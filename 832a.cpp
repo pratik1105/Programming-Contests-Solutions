@@ -19,11 +19,12 @@ const int N = 1e5+10;
 
 int main(){
   fast;
-  int n=10;
-
-  FOR(i,1,n)
-  {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
-  }
+  ll n,k;
+  cin>>n>>k;
+  ll val=n/k;
+  if(val%2)
+  	cout<<"YES";
+  else
+  	cout<<"NO";
   return 0;
 }

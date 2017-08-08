@@ -17,13 +17,28 @@ const ll INF = 1e18;
 const ll mod = 1e9+7;
 const int N = 1e5+10; 
 
+int arr[N];
 int main(){
   fast;
-  int n=10;
-
-  FOR(i,1,n)
+  int t;
+  cin>>t;
+  while(t--)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	int n;
+  	cin>>n;
+  	FOR(i,0,2*n-1)
+  	cin>>arr[i];
+  	
+  	sort(arr,arr+2*n);
+  	reverse(arr,arr+2*n);
+
+  	cout<<arr[n/2]<<endl;
+  	FOR(i,0,n-1)
+  	{
+  		cout<<arr[i]<<" "<<arr[i+n]<<" ";
+  	}
+  	cout<<endl;
   }
+
   return 0;
 }

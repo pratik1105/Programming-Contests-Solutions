@@ -17,13 +17,37 @@ const ll INF = 1e18;
 const ll mod = 1e9+7;
 const int N = 1e5+10; 
 
+vector<ll> arr;
 int main(){
   fast;
-  int n=10;
+  ll n;
+  cin>>n;
 
-  FOR(i,1,n)
+  if(n==1000000000)
   {
-  	cout<<pow(2,i)+pow(3,i)+pow(6,i)-1<<endl;
+  	cout<<1000000000;
+  	return 0;
   }
+
+  ll temp=1;
+  FOR(i,0,8)
+  {
+  	FOR(j,1,9)
+  	{
+  		arr.pb(j*temp);
+  	}
+  	temp*=10;
+  }
+  arr.pb(1000000000);
+
+  FOR(i,1,sz(arr)-1)
+  {
+  	if(n>=arr[i-1] and n<arr[i])
+  	{
+  		cout<<arr[i]-n;
+  		return 0;
+  	}
+  }
+
   return 0;
 }
