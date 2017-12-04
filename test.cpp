@@ -1,65 +1,125 @@
-#include <stdio.h>
- 
-int max(int x, int y) { return (x > y)? x: y; }
- 
-// Returns minimum number of jumps to reach arr[n-1] from arr[0]
-int minJumps(int arr[], int n)
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef pair<int,int> ii;
+
+#define fill(a,x) memset(a,x,sizeof(a)) 
+#define pb push_back
+#define sz(x) (int)x.size() 
+#define F first
+#define S second
+#define FOR(i,a,b) for(int i = a; i<=b; ++i)
+#define NFOR(i,a,b) for(int i = a; i>=b; --i)
+#define fast ios_base::sync_with_stdio(false),cin.tie(0),cout.tie(0)
+const ll INF = 1e18;
+const ll mod = 1e9+7;
+const int N = 8200+10;
+
+vi edges[5010];
+ll val[8200][5010];
+ll query[200010];
+int h[5010];
+int hw[5010];
+ll whole=0;
+int maxh;
+void dfs(int s,int p,int r)
 {
-     
-    // The number of jumps needed to reach the starting index is 0
-    if (n <= 1)
-        return 0;
- 
-    // Return -1 if not possible to jump
-    if (arr[0] == 0)
-        return -1;
- 
-    // initialization
-    int maxReach = arr[0];  // stores all time the maximal reachable index in the array.
-    int step = arr[0];      // stores the amount of steps we can still take
-    int jump =1;//stores the amount of jumps necessary to reach that maximal reachable position.
- 
-    // Start traversing array
-    int i=1;
-    for (i = 1; i < n; i++)
-    {
-        // Check if we have reached the end of the array
-        if (i == n-1)
-            return jump;
- 
-        // updating maxReach
-        maxReach = max(maxReach, i+arr[i]);
- 
-        // we use a step to get to the current index
-        step--;
- 
-        // If no further steps left
-        if (step == 0)
-        {
-            // we must have used a jump
-            jump++;
- 
-            // Check if the current index/position or lesser index
-            // is the maximum reach point from the previous indexes
-            if(i >= maxReach)
-                return -1;
- 
-            // re-initialize the steps to the amount
-            // of steps to reach maxReach from position i.
-            step = maxReach - i;
-        }
-    }
- 
-    return -1;
+  val[r][s]=val[r-1][s];
+  if(p==0)
+    h[s]=0;
+  else
+    h[s]=1+h[p];
+
+  maxh=max(maxh,h[s]);
+  FOR(i,0,sz(edges[s])-1)
+  {
+    if(edges[s][i]==p)
+      continue;
+
+    dfs(edges[s][i],s,r);
+    val[r][s]=val[r][s]^val[r][edges[s][i]];
+  }
+  hw[h[s]]^=val[r][s];
 }
- 
-// Driver program to test above function
-int main()
+
+void print(int s,int p,int r)
 {
-    int arr[]={4,4,1,1,1,1};
-    int size = sizeof(arr)/sizeof(int);
- 
-    // Calling the minJumps function
-    printf("Minimum number of jumps to reach end is %d ", minJumps(arr,size));
-    return 0;
+  
+  cout<<s<<" "<<val[r][s]<<endl;
+  whole=whole^val[r][s];
+  FOR(i,0,sz(edges[s])-1)
+  {
+    if(edges[s][i]==p)
+      continue;
+
+    print(edges[s][i],s,r);
+  }
+}
+
+int main(){
+  fast;
+  int n,q;
+  cin>>n>>q;
+  fill(h,0);
+
+  FOR(i,1,n-1)
+  {
+    int u,v;
+    cin>>u>>v;
+    edges[u+1].pb(v+1);
+    edges[v+1].pb(u+1);
+  }
+
+  FOR(i,1,n)
+  cin>>val[0][i];
+  
+  /*FOR(i,1,q)
+  cin>>query[i];*/
+
+  maxh=0;
+  dfs(1,0,1);
+  cout<<"round 1"<<endl;
+  FOR(j,0,maxh)
+  cout<<"Height "<<j<<" "<<hw[j]<<endl;
+  
+  ll rem=1;
+  FOR(i,0,12)
+  {
+    int v1=(1<<i);
+    int v2=(1<<(i+1));
+    if(maxh>=v1 and maxh<v2)
+    {
+      rem=v2;
+      break;
+    }
+  }
+
+  FOR(i,2,rem)
+  {
+    fill(hw,0);
+    dfs(1,0,i);
+    whole=0;
+
+    cout<<"round "<<i<<endl;
+    //print(1,0,i);
+    //cout<<"Rest is "<< (whole ^ val[i][1]) <<endl;
+    FOR(j,0,maxh)
+    cout<<"Height "<<j<<" "<<hw[j]<<endl;
+  }
+
+  
+  
+
+  /*FOR(i,1,q)
+  {
+    query[i]%=rem;
+    if(query[i]<0)
+      query[i]+=rem;
+
+    cout<<val[query[i]][1]<<endl;
+  }*/
+
+  return 0;
 }
