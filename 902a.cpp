@@ -17,19 +17,39 @@ const ll INF = 1e18;
 const ll mod = 1e9+7;
 const int N = 1e5+10; 
 
+int a[200],b[200];
 int main(){
   fast;
-  freopen("in.txt", "w", stdout);
-  srand(time(NULL));
-  FOR(i,1,50)
+  int n,m;
+  cin>>n>>m;
+
+  for(int i=0;i<n;i++)
+  	cin>>a[i]>>b[i];
+
+  bool flag=false;
+  int ed=0;
+  if(ed<a[0])
   {
-    int x=rand()%100+1;
-    int y=rand()%100+1;
-    int z=rand()%100+1;
-    int a=rand()%1000+1;
-    int b=rand()%1000+1;
-    int c=rand()%1000+1;
-    cout<<x<<" "<<y<<" "<<z<<" "<<a<<" "<<b<<" "<<c<<endl;
+    cout<<"NO"<<endl;
+    return 0;
   }
+  
+  for(int i=0;i<n;i++)
+  {
+  	ed=max(ed,b[i]);
+  	if(ed>=m)
+  	{
+  		flag=true;
+  		break;
+  	}
+  	
+  	if(i<n-1 and ed<a[i+1])
+  		break;
+  }
+
+  if(flag)
+  	cout<<"YES"<<endl;
+  else
+  	cout<<"NO"<<endl;
   return 0;
 }

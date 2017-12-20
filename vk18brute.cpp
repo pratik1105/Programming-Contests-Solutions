@@ -19,17 +19,34 @@ const int N = 1e5+10;
 
 int main(){
   fast;
-  freopen("in.txt", "w", stdout);
-  srand(time(NULL));
-  FOR(i,1,50)
+  int t;
+  cin>>t;
+  while(t--)
   {
-    int x=rand()%100+1;
-    int y=rand()%100+1;
-    int z=rand()%100+1;
-    int a=rand()%1000+1;
-    int b=rand()%1000+1;
-    int c=rand()%1000+1;
-    cout<<x<<" "<<y<<" "<<z<<" "<<a<<" "<<b<<" "<<c<<endl;
+  	int n;
+  	cin>>n;
+  	ll ans=0;
+
+  	for(int i=1;i<=n;i++)
+  	for(int j=1;j<=n;j++)
+  	{
+  		int num=i+j;
+  		ll odd=0;
+  		ll even=0;
+
+  		while(num)
+  		{
+  			if((num%10)%2)
+  			odd+=num%10;
+  			else
+  			even+=num%10;
+  			num/=10;
+  		}
+
+  		ans+=abs(odd-even);
+  	}
+  	cout<<ans<<endl;
   }
+
   return 0;
 }

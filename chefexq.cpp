@@ -17,19 +17,38 @@ const ll INF = 1e18;
 const ll mod = 1e9+7;
 const int N = 1e5+10; 
 
-int main(){
+int arr[N];
+int main()
+{
   fast;
-  freopen("in.txt", "w", stdout);
-  srand(time(NULL));
-  FOR(i,1,50)
+  int n,q;
+  cin>>n>>q;
+  
+
+  FOR(i,1,n)
+  cin>>arr[i];
+
+  FOR(t,1,q)
   {
-    int x=rand()%100+1;
-    int y=rand()%100+1;
-    int z=rand()%100+1;
-    int a=rand()%1000+1;
-    int b=rand()%1000+1;
-    int c=rand()%1000+1;
-    cout<<x<<" "<<y<<" "<<z<<" "<<a<<" "<<b<<" "<<c<<endl;
+  	int typ,i,x;
+  	cin>>typ>>i>>x;
+  	
+  	if(typ==1)
+  	arr[i]=x;
+  	
+  	if(typ==2)
+  	{
+  		int xorval=0;
+  		int ans=0;
+  		for(int j=1;j<=i;j++)
+  		{
+  			xorval^=arr[j];
+  			if(xorval==x)
+  			ans++;
+  		}
+  		cout<<ans<<endl;
+  	}
   }
+
   return 0;
 }
