@@ -1,5 +1,5 @@
 //Taken from a solution by https://codeforces.com/profile/T1duS399 
-
+// Model solution to : https://codeforces.com/contest/1117/problem/D
 const int SZ=110;
 int actualSize;
 
