@@ -17,19 +17,43 @@ const ll INF = 1e18;
 const ll mod = 1e9+7;
 const int N = 1e5+10; 
 
+ll dp[5010];
+
+char arr[5010];
+int n;
+
+
 int main(){
   fast;
-  freopen("in.txt", "w", stdout);
-  srand(time(NULL));
-  FOR(i,1,50)
+  
+  cin>>n;
+  for(int i=0;i<n;i++)
+    cin>>arr[i];
+
+  dp[n-1]=1;
+  dp[n]=1;
+
+  for(int i=n-2;i>=0;i--)
   {
-    int x=rand()%100+1;
-    int y=rand()%100+1;
-    int z=rand()%100+1;
-    int a=rand()%1000+1;
-    int b=rand()%1000+1;
-    int c=rand()%1000+1;
-    cout<<x<<" "<<y<<" "<<z<<" "<<a<<" "<<b<<" "<<c<<endl;
+    dp[i]=0;
+
+    if(arr[i]=='s')
+    dp[i]=dp[i+1];
+    
+    else
+    {
+      for(int j=i;j<n;j++)
+      {
+        if(arr[j]=='s')
+        {
+          dp[i]=(dp[i]+dp[j+1])%mod;
+          if(dp[i]<0)
+            dp[i]+=mod;
+        }
+      }
+    }
   }
+
+  cout<<dp[0]<<endl;
   return 0;
 }
