@@ -1,33 +1,22 @@
 //Taken from a solution by https://codeforces.com/profile/T1duS399 
 // Model solution to : https://codeforces.com/contest/1117/problem/D
+
+
+const ll mod = 1e9+7;
+const ll mod2 = mod*mod;
 const int SZ=110;
 int actualSize;
 
-ll add(ll a, ll b)
-{
-	ll ret = a + b;
-	while(ret >= mod)
-		ret=ret-mod;
-	return ret;
-}
 
-ll mult(ll a, ll b)
-{
-	ll ret = a;
-	ret *= b;
-	if(ret >= mod)
-		return ret % mod;
-	return ret;
-}
-
+ll res[SZ][SZ];
 struct matrix
 {
 	ll arr[SZ][SZ];
 
 	void makezeros()
 	{
-		for(int i=0;i<SZ;i++)
-		for(int j=0;j<SZ;j++)
+		for(int i=0;i<actualSize;i++)
+		for(int j=0;j<actualSize;j++)
 		arr[i][j]=0;
 	}
 
@@ -43,52 +32,64 @@ struct matrix
 	void makeiden()
 	{
 		makezeros();
-		for(int i=0;i<SZ;i++)
+		for(int i=0;i<actualSize;i++)
 		{
 			arr[i][i] = 1;
 		}
 	}
 
-	int answer(){
+	ll answer(){
 		ll ans = 0;
 		for(int i=0;i<actualSize;i++)
 		ans+=arr[0][i];
 
-		return add(ans,0);
+		ans%=mod;
+		if(ans<0)
+		ans+=mod;
+
+		return ans;
 	}
 
-	matrix operator + (const matrix &o) const
+	void add(const matrix &o) 
 	{
-		matrix res;
-		for(int i=0;i<SZ;i++)
+		for(int i=0;i<actualSize;i++)
 		{
-			for(int j=0;j<SZ;j++)
+			for(int j=0;j<actualSize;j++)
 			{
-				res.arr[i][j] = add(arr[i][j], o.arr[i][j]);
+				arr[i][j] = arr[i][j] + o.arr[i][j];
+				if(arr[i][j]>=mod)
+				arr[i][j]-=mod;
 			}
 		}
-		return res;
 	}
 
-	matrix operator * (const matrix &o) const
+	void mult(const matrix &o) 
 	{
-		matrix res;
-		for(int i=0;i<SZ;i++)
+		for(int i=0;i<actualSize;i++)
+		for(int j=0;j<actualSize;j++)
+		res[i][j]=0;
+
+		for(int i=0;i<actualSize;i++)
 		{
-			for(int j=0;j<SZ;j++)
+			for(int k=0;k<actualSize;k++)
 			{
-				res.arr[i][j] = 0;
-				for(int k=0;k<SZ;k++)
+				for(int j=0;j<actualSize;j++)
 				{
-					res.arr[i][j] = add(res.arr[i][j] , mult(arr[i][k] , o.arr[k][j]));
+					res[i][j] += arr[i][k]*o.arr[k][j];
+					if(res[i][j]>=mod2)
+					res[i][j]-=mod2;
 				}
 			}
 		}
-		return res;
+		
+		for(int i=0;i<actualSize;i++)
+		for(int j=0;j<actualSize;j++)
+		arr[i][j]=res[i][j]%mod;
 	}
+
 };
 
-matrix power(matrix a, ll b)
+matrix power(matrix& a, ll b)
 {
 	matrix ret;
 	ret.makeiden();
@@ -100,14 +101,13 @@ matrix power(matrix a, ll b)
 	{
 		if(b & 1)
 		{
-			ret = ret * a;
+			ret.mult(a);
 		}
-		a = a * a;
+		a.mult(a);
 		b >>= 1;
 	}
 	return ret;
 }
-
 
 int main(){
   fast;
@@ -117,6 +117,7 @@ int main(){
 
   matrix mat;
   
+
   mat.base();
   mat = power(mat,n-actualSize+1);
   cout<<mat.answer()<<endl;
